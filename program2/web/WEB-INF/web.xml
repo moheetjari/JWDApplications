@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>filters.authFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/welcomeServlet</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>RegistrationForm</servlet-name>
+        <servlet-class>servlets.RegistrationForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>welcomeServlet</servlet-name>
+        <servlet-class>servlets.welcomeServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RegistrationForm</servlet-name>
+        <url-pattern>/RegistrationForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>welcomeServlet</servlet-name>
+        <url-pattern>/welcomeServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
