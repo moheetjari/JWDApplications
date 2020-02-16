@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <servlet>
+        <servlet-name>ServletConfig</servlet-name>
+        <servlet-class>servlets.ServletConfig</servlet-class>
+        <init-param>
+            <param-name>Email</param-name>
+            <param-value>moheetjari@gmail.com</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
+        <servlet-name>ServletContext</servlet-name>
+        <servlet-class>servlets.ServletContext</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ServletConfig</servlet-name>
+        <url-pattern>/ServletConfig</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletContext</servlet-name>
+        <url-pattern>/ServletContext</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+    <context-param>
+        <param-name>Website-name</param-name>
+        <param-value>www.Google.com</param-value>
+    </context-param>
+</web-app>
