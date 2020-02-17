@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
+import java.sql.PreparedStatement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-public class GetEmployee extends HttpServlet {
+public class AddEmployee extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,42 +38,37 @@ public class GetEmployee extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet GetEmployee</title>");
+            out.println("<title>Servlet AddEmployee</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1><center>Employees</center></h1>");
-            out.println("<table border='1' align='center' cellspacing='2' cellpadding='2'>");
-            out.println("<center><a href='http://localhost:8080/program5/EmployeeForm'>Add Employee</a></center>");
-            out.println("<br>");
-            out.println("<tr>");
-            out.println("<th>Id</th>");
-            out.println("<th>EmployeeName</th>");
-            out.println("<th>Salary</th>");
-            out.println("<th>DepartmentId</th>");
-            out.println("<th>Edit</th>");
-            out.println("<th>Delete</th>");
-            out.println("</tr>");
+            String EmployeeId = request.getParameter("txtEmployeeId");
+            String EmployeeName = request.getParameter("txtEmployeeName");
+            String EmployeeSalary = request.getParameter("txtEmployeeSalary");
+            String DepartmentId = request.getParameter("txtEmployeeDepartment");
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/employeedb", "root", "root");
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM EMPLOYEE");
-
-                while (rs.next()) {
-                    out.println("<tr>");
-                    Integer EmployeeId = rs.getInt(1);
-                    String EmployeeName = rs.getString(2);
-                    Integer EmployeeSalary = rs.getInt(3);
-                    Integer DepartmentId = rs.getInt(4);
-                    out.println("<td>" + EmployeeId + "</td>");
-                    out.println("<td>" + EmployeeName + "</td>");
-                    out.println("<td>" + EmployeeSalary + "</td>");
-                    out.println("<td>" + DepartmentId + "</td>");
-                    out.println("<td><a href='http://localhost:8080/program5/EmployeeForm?employeeId=" + EmployeeId + "'>Edit</a></td>");
-                    out.println("<td><a href='http://localhost:8080/program5/EmployeeDelete?employeeId=" + EmployeeId + "'>Delete</a></td>");
-                    out.println("</tr>");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost/employeedb", "root", "root");
+                if (EmployeeId == null) {
+                    PreparedStatement stmt = con.prepareStatement("INSERT INTO EMPLOYEE(EMPLOYEENAME,SALARY,DEPARTMENTID) VALUES(?,?,?)");
+                    stmt.setString(1, EmployeeName);
+                    stmt.setString(2, EmployeeSalary);
+                    stmt.setString(3, DepartmentId);
+                    int rowsAff = stmt.executeUpdate();
+                    if (rowsAff > 0) {
+                        response.sendRedirect("GetEmployee");
+                    }
+                } else {
+                    PreparedStatement stmt = con.prepareStatement("UPDATE EMPLOYEE SET EMPLOYEENAME=?,SALARY=?,DEPARTMENTID=? WHERE Id=?");
+                    stmt.setString(1, EmployeeName);
+                    stmt.setString(2, EmployeeSalary);
+                    stmt.setString(3, DepartmentId);
+                    stmt.setString(4, EmployeeId);
+                    int rowsAff = stmt.executeUpdate();
+                    if (rowsAff > 0) {
+                        response.sendRedirect("GetEmployee");
+                    }
                 }
-            } catch (ClassNotFoundException | SQLException ex) {
+            } catch (Exception ex) {
                 out.println(ex);
             }
             out.println("</body>");

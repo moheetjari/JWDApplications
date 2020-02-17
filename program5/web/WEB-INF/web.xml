@@ -20,6 +20,14 @@
         <servlet-name>DepartmentDelete</servlet-name>
         <servlet-class>servlets.DepartmentDelete</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeForm</servlet-name>
+        <servlet-class>servlets.EmployeeForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddEmployee</servlet-name>
+        <servlet-class>servlets.AddEmployee</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetEmployee</servlet-name>
         <url-pattern>/GetEmployee</url-pattern>
@@ -39,6 +47,14 @@
     <servlet-mapping>
         <servlet-name>DepartmentDelete</servlet-name>
         <url-pattern>/DepartmentDelete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeForm</servlet-name>
+        <url-pattern>/EmployeeForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddEmployee</servlet-name>
+        <url-pattern>/AddEmployee</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
