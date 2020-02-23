@@ -28,6 +28,14 @@
         <servlet-name>AddEmployee</servlet-name>
         <servlet-class>servlets.AddEmployee</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DepartmentWiseEmp</servlet-name>
+        <servlet-class>servlets.DepartmentWiseEmp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TotalSalaryEmp</servlet-name>
+        <servlet-class>servlets.TotalSalaryEmp</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GetEmployee</servlet-name>
         <url-pattern>/GetEmployee</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>AddEmployee</servlet-name>
         <url-pattern>/AddEmployee</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DepartmentWiseEmp</servlet-name>
+        <url-pattern>/DepartmentWiseEmp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TotalSalaryEmp</servlet-name>
+        <url-pattern>/TotalSalaryEmp</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
