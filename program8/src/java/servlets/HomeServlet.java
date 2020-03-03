@@ -5,13 +5,8 @@
  */
 package servlets;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
-import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.DriverManager;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-public class RegistrationServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,44 +35,10 @@ public class RegistrationServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegistrationServlet</title>");
+            out.println("<title>Servlet HomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
-
-            String userName = request.getParameter("txtUserName");
-            String email = request.getParameter("txtEmail");
-            String dob = request.getParameter("txtBdate");
-            String password = request.getParameter("txtPassword");
-
-            String gRecaptchaResponse = request.getParameter("g-recaptcha-response");
-            Connection con = null;
-            Statement stmt = null;
-            boolean verify = VerifyRecaptcha.verify(gRecaptchaResponse);
-
-            try {
-                if (verify == true) {
-                    Class.forName("com.mysql.jdbc.Driver");
-                    con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
-                    stmt = (Statement) con.createStatement();
-                    PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into users(username,email,birthdate,roleid,password) values(?,?,?,?,?)");
-                    ps.setString(1, userName);
-                    ps.setString(2, email);
-                    ps.setDate(3, java.sql.Date.valueOf(dob));
-                    ps.setInt(4, 1);
-                    ps.setString(5, password);
-
-                    int rowAffected = ps.executeUpdate();
-
-                    if (rowAffected == 1) {
-                        response.sendRedirect("Login.html");
-                    }
-                } else {
-                    response.sendRedirect("Registration.html");
-                }
-            } catch (Exception ex) {
-                out.println(ex);
-            }
-
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
