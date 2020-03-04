@@ -8,6 +8,10 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/HomeServlet</url-pattern>
     </filter-mapping>
+    <listener>
+        <description>HttpSessionAttributeListener</description>
+        <listener-class>listners.SessionAttListner</listener-class>
+    </listener>
     <servlet>
         <servlet-name>RegistrationServlet</servlet-name>
         <servlet-class>servlets.RegistrationServlet</servlet-class>
@@ -16,6 +20,10 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>servlets.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminHomeServlet</servlet-name>
+        <servlet-class>servlets.AdminHomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -23,6 +31,10 @@
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/HomeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminHomeServlet</servlet-name>
+        <url-pattern>/AdminHomeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

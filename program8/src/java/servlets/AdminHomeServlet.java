@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author admin
  */
-public class HomeServlet extends HttpServlet {
+public class AdminHomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,12 +36,11 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");
+            out.println("<title>Servlet AdminHomeServlet</title>");
             out.println("</head>");
             out.println("<body>");
             HttpSession hs = request.getSession();
             String u = (String) hs.getAttribute("username");
-            hs.invalidate();
 //            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
             out.println(u);
             out.println("</body>");

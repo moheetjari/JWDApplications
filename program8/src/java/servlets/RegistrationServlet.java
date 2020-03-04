@@ -11,7 +11,7 @@ import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
-import java.util.Date;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -74,7 +74,7 @@ public class RegistrationServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("Registration.html");
                 }
-            } catch (Exception ex) {
+            } catch (IOException | ClassNotFoundException | SQLException ex) {
                 out.println(ex);
             }
 

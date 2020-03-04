@@ -14,30 +14,33 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
 public class AuthFilter implements Filter {
-    
+
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-    
+
     public AuthFilter() {
     }
-    
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -65,7 +68,7 @@ public class AuthFilter implements Filter {
 	}
          */
     }
-    
+
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
         if (debug) {
@@ -100,17 +103,20 @@ public class AuthFilter implements Filter {
      * @exception IOException if an input/output error occurs
      * @exception ServletException if a servlet error occurs
      */
-    public void doFilter(ServletRequest request, ServletResponse response,
+    public void doFilter(ServletRequest req, ServletResponse res,
             FilterChain chain)
             throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) req;
+        HttpServletResponse response = (HttpServletResponse) res;
         String username = request.getParameter("txtUserName");
         String password = request.getParameter("txtPassword");
+        String userId = "";
         String user = "";
         String pass = "";
         Connection con = null;
         Statement stmt = null;
         PrintWriter out = response.getWriter();
-        
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
@@ -118,21 +124,25 @@ public class AuthFilter implements Filter {
             ps.setString(1, username);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
-            
+
             while (rs.next()) {
+                userId = rs.getString("userId");
                 user = rs.getString("userName");
                 pass = rs.getString("password");
             }
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             if (user.equals(username) && pass.equals(password)) {
+                HttpSession hs = request.getSession();
+                hs.setAttribute("id", userId);
                 chain.doFilter(request, response);
+            } else if (username.equals("admin") && password.equals("admin")) {
+                response.sendRedirect("AdminHomeServlet");
             } else {
-                httpServletResponse.sendRedirect("Login.html");
+                response.sendRedirect("Login.html");
             }
-        } catch (Exception ex) {
+        } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
             out.println(ex);
         }
-        
+
     }
 
     /**
@@ -182,10 +192,10 @@ public class AuthFilter implements Filter {
         sb.append(")");
         return (sb.toString());
     }
-    
+
     private void sendProcessingError(Throwable t, ServletResponse response) {
         String stackTrace = getStackTrace(t);
-        
+
         if (stackTrace != null && !stackTrace.equals("")) {
             try {
                 response.setContentType("text/html");
@@ -212,7 +222,7 @@ public class AuthFilter implements Filter {
             }
         }
     }
-    
+
     public static String getStackTrace(Throwable t) {
         String stackTrace = null;
         try {
@@ -226,9 +236,9 @@ public class AuthFilter implements Filter {
         }
         return stackTrace;
     }
-    
+
     public void log(String msg) {
         filterConfig.getServletContext().log(msg);
     }
-    
+
 }
