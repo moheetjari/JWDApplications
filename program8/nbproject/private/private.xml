@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/F:/sem8/java/assignment/JWDApplications/program8/web/AddCategory.html</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/web/Login.html</file>
+            <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/servlets/addcategoryServlet.java</file>
+            <file>file:/F:/sem8/java/assignment/JWDApplications/program8/web/AddProduct.html</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/filters/AuthFilter.java</file>
+            <file>file:/F:/sem8/java/assignment/JWDApplications/program8/web/AddSubCategory.html</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/servlets/RegistrationServlet.java</file>
+            <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/listners/SessionAttListner.java</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/web/Registration.html</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/servlets/HomeServlet.java</file>
             <file>file:/F:/sem8/java/assignment/JWDApplications/program8/src/java/servlets/AdminHomeServlet.java</file>

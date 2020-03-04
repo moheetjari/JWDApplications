@@ -24,6 +24,10 @@
         <servlet-name>AdminHomeServlet</servlet-name>
         <servlet-class>servlets.AdminHomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addcategoryServlet</servlet-name>
+        <servlet-class>servlets.addcategoryServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -35,6 +39,10 @@
     <servlet-mapping>
         <servlet-name>AdminHomeServlet</servlet-name>
         <url-pattern>/AdminHomeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addcategoryServlet</servlet-name>
+        <url-pattern>/addcategoryServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

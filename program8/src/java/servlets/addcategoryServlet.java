@@ -11,19 +11,17 @@ import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-public class AdminHomeServlet extends HttpServlet {
+public class addcategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,39 +40,26 @@ public class AdminHomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminHomeServlet</title>");
+            out.println("<title>Servlet addcategoryServlet</title>");
             out.println("</head>");
             out.println("<body>");
+            String categoryName = (String) request.getParameter("txtCategory");
             Connection con = null;
             Statement stmt = null;
-            String categoryName = null;
-
-            out.println("<center><h1>Welcome Admin</h1></center>");
-            out.println("<Button><a href='http://localhost:8080/program8/AddCategory.html'><b>Add Category</b></a></Button>");
-            out.println("<Button><a href='http://localhost:8080/program8/AddSubCategory.html'><b>Add SubCategory</b></a></Button>");
-            out.println("<Button><a href='http://localhost:8080/program8/AddProduct.html'><b>Add Product</b></a></Button>");
-            out.println("<br><br>");
-            out.println("<table cellpadding='2' cellspacing='2' align='center'>");
-            out.println("<tr>");
-            out.println("<th>CategoryId</th>");
-            out.println("<th>CategoryName</th>");
-            out.println("</tr>");
-            out.println("<tr>");
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
                 stmt = (Statement) con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from Category");
-
-                while (rs.next()) {
-                    out.println("<td>" + rs.getString("categoryId") + "</td>");
-                    out.println("<td>" + rs.getString("categoryName") + "</td>");
+                PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into category(categoryname) values(?)");
+                ps.setString(1, categoryName);
+                int rowsAffected = ps.executeUpdate();
+                
+                if (rowsAffected == 1) {
+                    response.sendRedirect("AdminHomeServlet");
                 }
             } catch (ClassNotFoundException | SQLException ex) {
-                out.println(ex);
+                
             }
-            out.println("</tr>");
-            out.println("</table>");
             out.println("</body>");
             out.println("</html>");
         }
