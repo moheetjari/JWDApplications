@@ -1,5 +1,5 @@
 # JWDApplications
-Servlet Assignment – 1
+# Servlet Assignment – 1
 1. Develop a servlet to get the client information who made the request.
 2. Make a student registration form and retrieve the value in the servlet.
 Note: Take all possible fields and do the validation.
@@ -67,7 +67,7 @@ Note: include only essential fields in registration form. Assume the payment
 to be offline.
 
 
-JSP Assignment-2
+# JSP Assignment-2
 1. Convert the Servlet assignment to JSP.
 2. Develop a jsp page to illustrate the use of Session Tracking.
 3. Create a custom tag for the following:
