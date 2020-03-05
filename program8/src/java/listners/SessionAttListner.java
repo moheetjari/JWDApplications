@@ -41,10 +41,6 @@ public class SessionAttListner implements HttpSessionAttributeListener {
             Format f1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String lastaccesstime = f1.format(d1);
 
-            Date d2 = new Date();
-            Format f2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String cdatetime = f2.format(d2);
-
             String userId = (String) event.getSession().getAttribute("id");
 
             Class.forName("com.mysql.jdbc.Driver");
@@ -58,10 +54,12 @@ public class SessionAttListner implements HttpSessionAttributeListener {
             if (size > 0) {
                 dataVisits = rs.getInt("visits");
                 stmt = (Statement) con.createStatement();
-                PreparedStatement ps2 = (PreparedStatement) con.prepareStatement("update logtb set visits=?,lastaccesstime=? where userid=?");
+                PreparedStatement ps2 = (PreparedStatement) con.prepareStatement("update logtb set visits=?,lastaccesstime=?,sessionid=?,creationtime=? where userid=?");
                 ps2.setInt(1, dataVisits + 1);
-                ps2.setString(2, cdatetime);
-                ps2.setString(3, userId);
+                ps2.setString(2, lastaccesstime);
+                ps2.setString(3, sessionId);
+                ps2.setString(4, creationtime);
+                ps2.setString(5, userId);
                 ps2.executeUpdate();
 
             } else {
