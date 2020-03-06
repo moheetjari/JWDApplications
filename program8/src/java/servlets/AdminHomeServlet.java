@@ -6,7 +6,6 @@
 package servlets;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
 import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,7 +16,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -51,12 +49,11 @@ public class AdminHomeServlet extends HttpServlet {
 
             out.println("<center><h1>Welcome Admin</h1></center>");
             out.println("<Button><a href='http://localhost:8080/program8/AddCategory.html'><b>Add Category</b></a></Button>");
-            out.println("<Button><a href='http://localhost:8080/program8/AddSubCategory.html'><b>Add SubCategory</b></a></Button>");
-            out.println("<Button><a href='http://localhost:8080/program8/AddProduct.html'><b>Add Product</b></a></Button>");
+            out.println("<Button><a href='http://localhost:8080/program8/productServlet'><b>Add Product</b></a></Button>");
             out.println("<br><br>");
-            out.println("<table cellpadding='2' cellspacing='2' align='center'>");
+            out.println("<table cellpadding='2' cellspacing='2' align='center' border='1'>");
             out.println("<tr>");
-            out.println("<th>CategoryId</th>");
+            out.println("<th>Id</th>");
             out.println("<th>CategoryName</th>");
             out.println("</tr>");
             out.println("<tr>");
@@ -69,11 +66,38 @@ public class AdminHomeServlet extends HttpServlet {
                 while (rs.next()) {
                     out.println("<td>" + rs.getString("categoryId") + "</td>");
                     out.println("<td>" + rs.getString("categoryName") + "</td>");
+                    out.println("</tr>");
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 out.println(ex);
             }
+            out.println("</table>");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<br>");
+            out.println("<table cellpadding='2' cellspacing='2' align='center' border='1'>");
+            out.println("<tr>");
+            out.println("<th>Id</th>");
+            out.println("<th>ProductName</th>");
+            out.println("<th>ProductPrice</th>");
             out.println("</tr>");
+            out.println("<tr>");
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
+                stmt = (Statement) con.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from product");
+
+                while (rs.next()) {
+                    out.println("<td>" + rs.getString("productid") + "</td>");
+                    out.println("<td>" + rs.getString("productname") + "</td>");
+                    out.println("<td>" + rs.getString("price") + "</td>");
+                    out.println("</tr>");
+                }
+            } catch (ClassNotFoundException | SQLException ex) {
+                out.println(ex);
+            }
             out.println("</table>");
             out.println("</body>");
             out.println("</html>");

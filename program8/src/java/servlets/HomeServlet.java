@@ -5,8 +5,13 @@
  */
 package servlets;
 
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +45,17 @@ public class HomeServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             HttpSession hs = request.getSession();
-            String u = (String) hs.getAttribute("username");
-            hs.invalidate();
-//            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
-            out.println(u);
+            String u = (String) hs.getAttribute("id");
+            out.println("<h1>Welcome user your id is: " + u + "</h1>");
+
+            if (u == null) {
+                response.sendRedirect("Login.html");
+            }
+
+            out.println("<Button><a href='http://localhost:8080/program8/showproductsServlet'><b>Show Products</b></a></Button>");
+            out.println("<Button><a href='http://localhost:8080/program8/logoutServlet'><b>Logout</b></a></Button>");
+            out.println("<Button><a href='http://localhost:8080/program8/showaddtocartServlet'><b>Show Addtocart</b></a></Button>");
+
             out.println("</body>");
             out.println("</html>");
         }

@@ -12,16 +12,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-public class addcategoryServlet extends HttpServlet {
+public class addtocartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,26 +44,41 @@ public class addcategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addcategoryServlet</title>");
+            out.println("<title>Servlet addtocartServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            String categoryName = (String) request.getParameter("txtCategory");
+
+            Date d = new Date();
+            Format f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String createddate = f.format(d);
+
+            String qString = (String) request.getQueryString();
+            String productId = qString.split("=")[1];
+
+            HttpSession hs = request.getSession();
+            String userId = (String) hs.getAttribute("id");
+
             Connection con = null;
             Statement stmt = null;
+
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
                 stmt = (Statement) con.createStatement();
-                PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into category(categoryname) values(?)");
-                ps.setString(1, categoryName);
+                PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into cart(productid,qty,createddate,userid) values(?,?,?,?)");
+                ps.setString(1, productId);
+                ps.setInt(2, 1);
+                ps.setString(3, createddate);
+                ps.setString(4, userId);
                 int rowsAffected = ps.executeUpdate();
-                
+
                 if (rowsAffected == 1) {
-                    response.sendRedirect("AdminHomeServlet");
+                    response.sendRedirect("HomeServlet");
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 out.println(ex);
             }
+
             out.println("</body>");
             out.println("</html>");
         }

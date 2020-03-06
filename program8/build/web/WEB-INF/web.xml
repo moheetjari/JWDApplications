@@ -28,6 +28,30 @@
         <servlet-name>addcategoryServlet</servlet-name>
         <servlet-class>servlets.addcategoryServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>productServlet</servlet-name>
+        <servlet-class>servlets.productServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addproductServlet</servlet-name>
+        <servlet-class>servlets.addproductServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>addtocartServlet</servlet-name>
+        <servlet-class>servlets.addtocartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showproductsServlet</servlet-name>
+        <servlet-class>servlets.showproductsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>logoutServlet</servlet-name>
+        <servlet-class>servlets.logoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>showaddtocartServlet</servlet-name>
+        <servlet-class>servlets.showaddtocartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -43,6 +67,30 @@
     <servlet-mapping>
         <servlet-name>addcategoryServlet</servlet-name>
         <url-pattern>/addcategoryServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>productServlet</servlet-name>
+        <url-pattern>/productServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addproductServlet</servlet-name>
+        <url-pattern>/addproductServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addtocartServlet</servlet-name>
+        <url-pattern>/addtocartServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showproductsServlet</servlet-name>
+        <url-pattern>/showproductsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>logoutServlet</servlet-name>
+        <url-pattern>/logoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>showaddtocartServlet</servlet-name>
+        <url-pattern>/showaddtocartServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

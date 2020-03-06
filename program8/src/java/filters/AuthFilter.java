@@ -108,41 +108,47 @@ public class AuthFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
-        String username = request.getParameter("txtUserName");
-        String password = request.getParameter("txtPassword");
-        String userId = "";
-        String user = "";
-        String pass = "";
-        Connection con = null;
-        Statement stmt = null;
-        PrintWriter out = response.getWriter();
 
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
-            PreparedStatement ps = (PreparedStatement) con.prepareStatement("select * from users where username=? and password=?");
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
+        HttpSession hs = request.getSession();
+        String usr = (String) hs.getAttribute("id");
+        if (usr != null) {
+            chain.doFilter(req, res);
+        } else {
+            String username = request.getParameter("txtUserName");
+            String password = request.getParameter("txtPassword");
+            String userId = "";
+            String user = "";
+            String pass = "";
+            Connection con = null;
+            Statement stmt = null;
+            PrintWriter out = response.getWriter();
 
-            while (rs.next()) {
-                userId = rs.getString("userId");
-                user = rs.getString("userName");
-                pass = rs.getString("password");
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
+                PreparedStatement ps = (PreparedStatement) con.prepareStatement("select * from users where username=? and password=?");
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ResultSet rs = ps.executeQuery();
+
+                while (rs.next()) {
+                    userId = rs.getString("userId");
+                    user = rs.getString("userName");
+                    pass = rs.getString("password");
+                }
+                if (user.equals(username) && pass.equals(password)) {
+//                HttpSession hs = request.getSession();
+                    hs.setAttribute("id", userId);
+                    chain.doFilter(request, response);
+                } else if (username.equals("admin") && password.equals("admin")) {
+                    response.sendRedirect("AdminHomeServlet");
+                } else {
+                    response.sendRedirect("Login.html");
+                }
+            } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
+                out.println(ex);
             }
-            if (user.equals(username) && pass.equals(password)) {
-                HttpSession hs = request.getSession();
-                hs.setAttribute("id", userId);
-                chain.doFilter(request, response);
-            } else if (username.equals("admin") && password.equals("admin")) {
-                response.sendRedirect("AdminHomeServlet");
-            } else {
-                response.sendRedirect("Login.html");
-            }
-        } catch (IOException | ClassNotFoundException | SQLException | ServletException ex) {
-            out.println(ex);
         }
-
     }
 
     /**

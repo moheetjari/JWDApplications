@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-public class addcategoryServlet extends HttpServlet {
+public class addproductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,20 +40,24 @@ public class addcategoryServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addcategoryServlet</title>");
+            out.println("<title>Servlet addproductServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            String categoryName = (String) request.getParameter("txtCategory");
+            String productName = request.getParameter("txtProductName");
+            String productPrice = request.getParameter("txtProductPrice");
+            String categoryId = request.getParameter("drpcategory");
             Connection con = null;
             Statement stmt = null;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/computershopdb", "root", "root");
                 stmt = (Statement) con.createStatement();
-                PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into category(categoryname) values(?)");
-                ps.setString(1, categoryName);
+                PreparedStatement ps = (PreparedStatement) con.prepareStatement("insert into product(productname,price,categoryid) values(?,?,?)");
+                ps.setString(1, productName);
+                ps.setString(2, productPrice);
+                ps.setString(3, categoryId);
                 int rowsAffected = ps.executeUpdate();
-                
+
                 if (rowsAffected == 1) {
                     response.sendRedirect("AdminHomeServlet");
                 }
