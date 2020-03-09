@@ -23,10 +23,18 @@
                     Statement stmt = con.createStatement();
                     PreparedStatement ps = con.prepareStatement("select * from employee where employeename like '" + empName + "%'");
                     ResultSet rs = ps.executeQuery();
-
+                    out.println("<table cellspacing='2' cellpadding='2' align='center' border='2'>");
+                    out.println("<tr>");
+                    out.println("<th>EmployeeName</th>");
+                    out.println("<th>Salary</th>");
+                    out.println("</tr>");
+                    out.println("<tr>");
                     while (rs.next()) {
-                        out.println("Employee Name: " + rs.getString("employeename") + "<br>");
+                        out.println("<td>" + rs.getString("employeename") + "</td>");
+                        out.println("<td>" + rs.getString("salary") + "</td>");
+                        out.println("</tr>");
                     }
+                    out.println("</table>");
                 }
             } catch (Exception ex) {
                 out.println(ex);
