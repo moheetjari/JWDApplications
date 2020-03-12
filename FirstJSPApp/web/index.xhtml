@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel for="cname" id="lblcustomer" value="Customer name" />
+                <h:inputText id="cname" value="#{customerBean.customerName}" />
+                <h:outputLabel for="username" id="lbluser" value="Username" />
+                <h:inputText id="username" value="#{customerBean.username}" />
+                <h:outputLabel for="password" id="lblpassword" value="Password" />
+                <h:inputText id="password" value="#{customerBean.password}" />
+                <h:outputLabel for="age" id="lblage" value="Age" />
+                <h:inputText id="age" value="#{customerBean.age}" />
+
+                <!--<h:commandButton id="btnSubmit" value="Submit" action="#{customerBean.showData()}" />-->
+                <h:commandButton id="btnSubmit" value="Submit" action="ShowDataPage" />
+                <h:commandButton id="btnReset" value="Reset" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
