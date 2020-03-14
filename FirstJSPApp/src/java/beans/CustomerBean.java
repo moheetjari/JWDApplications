@@ -5,8 +5,13 @@
  */
 package beans;
 
+import java.util.Date;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -20,10 +25,23 @@ public class CustomerBean {
     private String password;
     private String customerName;
     private int age;
+    private Date regDate = new Date();
+    private String email;
 
     /**
      * Creates a new instance of CustomerBean
      */
+    public void validateLength(FacesContext context, UIComponent component, Object obj) {
+        String str = (String) obj;
+
+        if (str.length() <= 3) {
+            ((UIInput) component).setValid(false);
+
+            FacesMessage message = new FacesMessage("Bean: the shoild be greater than 3");
+            context.addMessage(component.getClientId(context), message);
+        }
+    }
+
     public CustomerBean() {
 
     }
@@ -59,8 +77,24 @@ public class CustomerBean {
     public void setAge(int age) {
         this.age = age;
     }
-    
-    public String showData(){
+
+    public Date getRegDate() {
+        return regDate;
+    }
+
+    public void setRegDate(Date regDate) {
+        this.regDate = regDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String showData() {
         return "success ";
     }
 }
