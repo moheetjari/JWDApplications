@@ -95,6 +95,6 @@ public class CustomerBean {
     }
 
     public String showData() {
-        return "success ";
+        return "ShowDataPage";
     }
 }

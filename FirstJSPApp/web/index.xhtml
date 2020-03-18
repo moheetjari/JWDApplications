@@ -12,6 +12,7 @@
             <h:panelGrid columns="2">
                 <h:outputLabel for="cname" id="lblcustomer" value="Customer name" />
                 <h:inputText id="cname" required="true" requiredMessage="Name cannot be blank" value="#{customerBean.customerName}" >
+                    <f:converter converterId="myconverter"/>
                     <f:validator  validatorId="customLengthValidator" />
                 </h:inputText>
                 <h:outputLabel for="username" id="lbluser" value="Username" />
@@ -31,10 +32,25 @@
                     <f:validateRegex pattern="[a-z]+@.+\..+" />
                 </h:inputText>
 
-<!--<h:commandButton id="btnSubmit" value="Submit" action="#{customerBean.showData()}" />-->
-                <h:commandButton id="btnSubmit" value="Submit" action="ShowDataPage" />
+                <h:commandButton id="btnSubmit" value="Submit" action="#{customerBean.showData()}" />
+                <!--<h:commandButton id="btnSubmit" value="Submit" action="ShowDataPage" />-->
                 <h:commandButton id="btnReset" value="Reset" />
             </h:panelGrid>
+
+            <h:dataTable id="dt" value="#{dataBean.customers}" var="cus" border="1">
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Customer Name"/>
+                    </f:facet>
+                    <h:outputText value="#{cus.firstName}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="last Name"/>
+                    </f:facet>
+                    <h:outputText value="#{cus.lastName}"/>
+                </h:column>
+            </h:dataTable>
         </h:form>
     </h:body>
 </html>
